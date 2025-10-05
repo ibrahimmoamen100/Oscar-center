@@ -4,8 +4,8 @@ const API_BASE_URL = import.meta.env && import.meta.env.DEV
   ? 'http://localhost:3001/api'
   : (import.meta.env?.VITE_API_BASE_URL || '/api');
 
-// مسار نسخة البيانات الساكنة للاستخدام في الإنتاج عند عدم وجود خادم
-const STATIC_DB_URL = '/db.json';
+// استيراد نسخة البيانات المحلية (تُضمَّن داخل الباندل)
+import localDb from './db.json';
 
 // واجهات TypeScript
 export interface Student {
@@ -118,13 +118,11 @@ async function fetchWithFallback<T>(apiPath: string, fallbackSelector: (data: Ce
       console.error(`API request failed for ${apiPath}:`, error);
       throw error;
     }
-    // في الإنتاج: نحاول القراءة من db.json الساكنة
+    // في الإنتاج: ن fallback للبيانات المضمّنة من src/data/db.json
     try {
-      const res = await fetch(STATIC_DB_URL);
-      const data = (await res.json()) as CenterData;
-      return fallbackSelector(data);
+      return fallbackSelector(localDb as unknown as CenterData);
     } catch (fallbackError) {
-      console.error(`Fallback to ${STATIC_DB_URL} failed for ${apiPath}:`, fallbackError);
+      console.error(`Embedded DB fallback failed for ${apiPath}:`, fallbackError);
       throw error;
     }
   }
@@ -216,12 +214,11 @@ export const loginStudent = async (username: string, password: string): Promise<
     // محاولة تسجيل الدخول من نسخة db.json الساكنة في الإنتاج
     if (!(import.meta.env && import.meta.env.DEV)) {
       try {
-        const res = await fetch(STATIC_DB_URL);
-        const data = (await res.json()) as CenterData;
+        const data = localDb as unknown as CenterData;
         const student = (data.students || []).find(s => s.username === username && s.password === password) || null;
         return student;
       } catch (e) {
-        console.error('Fallback login from db.json failed:', e);
+        console.error('Fallback login from embedded db.json failed:', e);
       }
     }
     return null;
@@ -313,12 +310,11 @@ export const loginTeacher = async (email: string, password: string): Promise<Tea
     console.error('Error logging in teacher:', error);
     if (!(import.meta.env && import.meta.env.DEV)) {
       try {
-        const res = await fetch(STATIC_DB_URL);
-        const data = (await res.json()) as CenterData;
+        const data = localDb as unknown as CenterData;
         const teacher = (data.teachers || []).find(t => t.email === email && t.password === password) || null;
         return teacher;
       } catch (e) {
-        console.error('Fallback login from db.json failed:', e);
+        console.error('Fallback login from embedded db.json failed:', e);
       }
     }
     return null;
@@ -605,8 +601,7 @@ export const getMessagesForUser = async (userId: string, userType: 'student' | '
     console.error('Error fetching user messages:', error);
     // Fallback: تصفية الرسائل من db.json بناءً على المستخدم
     try {
-      const res = await fetch(STATIC_DB_URL);
-      const data = (await res.json()) as CenterData & { messages: Message[] };
+      const data = localDb as unknown as CenterData & { messages: Message[] };
       const messages = data.messages || [];
       const students = data.students || [];
       const teachers = data.teachers || [];
