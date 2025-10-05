@@ -1,0 +1,109 @@
+{
+  "students": [
+    {
+      "id": "STD-sample-1",
+      "name": "أحمد محمد علي",
+      "username": "ahmed1223",
+      "password": "123456",
+      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
+      "gender": "male",
+      "birthDate": "2007-05-15",
+      "age": 17,
+      "phone": "01000000000",
+      "parentPhone": "01000000000",
+      "educationLevel": "preparatory",
+      "grade": "الأولى الإعدادي",
+      "selectedSubjects": ["3", "4"],
+      "totalPrice": 850,
+      "hasPaid": true,
+      "paidSubjects": ["3", "4"],
+      "enrolledSubjects": ["1", "2"],
+      "schedule": [],
+      "monthStartDate": "2025-08-01",
+      "monthEndDate": "2025-08-31",
+      "points": 100,
+      "notes": "مثال فقط",
+      "certificates": []
+    },
+    {
+      "id": "STD-sample-2",
+      "name": "فاطمة علي حسن",
+      "username": "fatima456",
+      "password": "123456",
+      "photo": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=150&h=150&fit=crop&crop=face",
+      "gender": "female",
+      "birthDate": "2008-03-20",
+      "age": 16,
+      "phone": "01111111111",
+      "parentPhone": "01011111111",
+      "educationLevel": "secondary",
+      "grade": "الأولى الثانوي",
+      "selectedSubjects": ["1"],
+      "totalPrice": 500,
+      "hasPaid": true,
+      "paidSubjects": ["1"],
+      "enrolledSubjects": ["1"],
+      "schedule": [],
+      "monthStartDate": "2025-08-01",
+      "monthEndDate": "2025-08-31",
+      "points": 40,
+      "notes": "مثال فقط",
+      "certificates": []
+    }
+  ],
+  "teachers": [
+    {
+      "id": "TCH-sample-1",
+      "name": "د. محمد أحمد",
+      "email": "mohamed@teacher.com",
+      "password": "123456",
+      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
+      "phone": "01567890123",
+      "subjects": ["1"],
+      "schedule": []
+    }
+  ],
+  "subjects": [
+    {
+      "id": "1",
+      "name": "الرياضيات",
+      "description": "مادة الرياضيات للثانوية العامة",
+      "price": 500,
+      "duration": "شهر",
+      "educationLevel": "secondary",
+      "grade": ["الثالثة الثانوي"]
+    },
+    {
+      "id": "3",
+      "name": "الجبر",
+      "description": "مادة الجبر للمرحلة الإعدادية",
+      "price": 400,
+      "duration": "شهر",
+      "educationLevel": "preparatory",
+      "grade": ["الأولى الإعدادي"]
+    },
+    {
+      "id": "4",
+      "name": "الهندسة",
+      "description": "الهندسة للمرحلة الإعدادية",
+      "price": 450,
+      "duration": "شهر",
+      "educationLevel": "preparatory",
+      "grade": ["الأولى الإعدادي"]
+    }
+  ],
+  "schedules": [],
+  "messages": [
+    {
+      "id": "MSG-sample-1",
+      "title": "مرحباً بكم",
+      "content": "بيانات تجريبية فقط للعرض.",
+      "targetType": "all_students",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "isActive": true,
+      "priority": "medium"
+    }
+  ],
+  "customSchedules": []
+}
+

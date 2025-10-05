@@ -1,5 +1,11 @@
 // نظام API للتعامل مع الخادم
-const API_BASE_URL = 'http://localhost:3001/api';
+// اختيار عنوان الـ API حسب بيئة التشغيل
+const API_BASE_URL = import.meta.env && import.meta.env.DEV
+  ? 'http://localhost:3001/api'
+  : (import.meta.env?.VITE_API_BASE_URL || '/api');
+
+// مسار نسخة البيانات الساكنة للاستخدام في الإنتاج عند عدم وجود خادم
+const STATIC_DB_URL = '/db.json';
 
 // واجهات TypeScript
 export interface Student {
@@ -89,6 +95,7 @@ export interface CenterData {
   subjects: Subject[];
   schedules: ClassSchedule[];
   customSchedules: ScheduleType[];
+  messages: Message[];
 }
 
 // دالة مساعدة للتعامل مع الأخطاء
@@ -100,13 +107,35 @@ const handleResponse = async (response: Response) => {
   return response.json();
 };
 
+// دالة عامة: محاولة جلب من الـ API ثم fallback إلى db.json في الإنتاج (قراءة فقط)
+async function fetchWithFallback<T>(apiPath: string, fallbackSelector: (data: CenterData) => T, options?: RequestInit): Promise<T> {
+  try {
+    const response = await fetch(`${API_BASE_URL}${apiPath}`, options);
+    return await handleResponse(response);
+  } catch (error) {
+    // في وضع التطوير، نظهر الخطأ ونرجع قيمة افتراضية
+    if (import.meta.env && import.meta.env.DEV) {
+      console.error(`API request failed for ${apiPath}:`, error);
+      throw error;
+    }
+    // في الإنتاج: نحاول القراءة من db.json الساكنة
+    try {
+      const res = await fetch(STATIC_DB_URL);
+      const data = (await res.json()) as CenterData;
+      return fallbackSelector(data);
+    } catch (fallbackError) {
+      console.error(`Fallback to ${STATIC_DB_URL} failed for ${apiPath}:`, fallbackError);
+      throw error;
+    }
+  }
+}
+
 // ==================== الطلاب ====================
 
 // جلب جميع الطلاب
 export const getStudents = async (): Promise<Student[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/students`);
-    return await handleResponse(response);
+    return await fetchWithFallback<Student[]>(`/students`, d => d.students || []);
   } catch (error) {
     console.error('Error fetching students:', error);
     return [];
@@ -116,8 +145,7 @@ export const getStudents = async (): Promise<Student[]> => {
 // جلب طالب واحد
 export const getStudent = async (id: string): Promise<Student | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/students/${id}`);
-    return await handleResponse(response);
+    return await fetchWithFallback<Student | null>(`/students/${id}`, d => (d.students || []).find(s => s.id === id) || null);
   } catch (error) {
     console.error('Error fetching student:', error);
     return null;
@@ -185,6 +213,17 @@ export const loginStudent = async (username: string, password: string): Promise<
     return await handleResponse(response);
   } catch (error) {
     console.error('Error logging in student:', error);
+    // محاولة تسجيل الدخول من نسخة db.json الساكنة في الإنتاج
+    if (!(import.meta.env && import.meta.env.DEV)) {
+      try {
+        const res = await fetch(STATIC_DB_URL);
+        const data = (await res.json()) as CenterData;
+        const student = (data.students || []).find(s => s.username === username && s.password === password) || null;
+        return student;
+      } catch (e) {
+        console.error('Fallback login from db.json failed:', e);
+      }
+    }
     return null;
   }
 };
@@ -194,8 +233,7 @@ export const loginStudent = async (username: string, password: string): Promise<
 // جلب جميع المدرسين
 export const getTeachers = async (): Promise<Teacher[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/teachers`);
-    return await handleResponse(response);
+    return await fetchWithFallback<Teacher[]>(`/teachers`, d => d.teachers || []);
   } catch (error) {
     console.error('Error fetching teachers:', error);
     return [];
@@ -205,8 +243,7 @@ export const getTeachers = async (): Promise<Teacher[]> => {
 // جلب مدرس واحد
 export const getTeacher = async (id: string): Promise<Teacher | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/teachers/${id}`);
-    return await handleResponse(response);
+    return await fetchWithFallback<Teacher | null>(`/teachers/${id}`, d => (d.teachers || []).find(t => t.id === id) || null);
   } catch (error) {
     console.error('Error fetching teacher:', error);
     return null;
@@ -274,6 +311,16 @@ export const loginTeacher = async (email: string, password: string): Promise<Tea
     return await handleResponse(response);
   } catch (error) {
     console.error('Error logging in teacher:', error);
+    if (!(import.meta.env && import.meta.env.DEV)) {
+      try {
+        const res = await fetch(STATIC_DB_URL);
+        const data = (await res.json()) as CenterData;
+        const teacher = (data.teachers || []).find(t => t.email === email && t.password === password) || null;
+        return teacher;
+      } catch (e) {
+        console.error('Fallback login from db.json failed:', e);
+      }
+    }
     return null;
   }
 };
@@ -283,8 +330,7 @@ export const loginTeacher = async (email: string, password: string): Promise<Tea
 // جلب جميع المواد
 export const getSubjects = async (): Promise<Subject[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/subjects`);
-    return await handleResponse(response);
+    return await fetchWithFallback<Subject[]>(`/subjects`, d => d.subjects || []);
   } catch (error) {
     console.error('Error fetching subjects:', error);
     return [];
@@ -294,8 +340,7 @@ export const getSubjects = async (): Promise<Subject[]> => {
 // جلب مادة واحدة
 export const getSubject = async (id: string): Promise<Subject | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/subjects/${id}`);
-    return await handleResponse(response);
+    return await fetchWithFallback<Subject | null>(`/subjects/${id}`, d => (d.subjects || []).find(s => s.id === id) || null);
   } catch (error) {
     console.error('Error fetching subject:', error);
     return null;
@@ -355,8 +400,7 @@ export const deleteSubject = async (id: string): Promise<boolean> => {
 // جلب جميع المواعيد
 export const getSchedules = async (): Promise<ScheduleType[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/schedules`);
-    return await handleResponse(response);
+    return await fetchWithFallback<ScheduleType[]>(`/schedules`, d => d.customSchedules || []);
   } catch (error) {
     console.error('Error fetching schedules:', error);
     return [];
@@ -366,8 +410,7 @@ export const getSchedules = async (): Promise<ScheduleType[]> => {
 // جلب موعد واحد
 export const getSchedule = async (id: string): Promise<ScheduleType | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/schedules/${id}`);
-    return await handleResponse(response);
+    return await fetchWithFallback<ScheduleType | null>(`/schedules/${id}`, d => (d.customSchedules || []).find(s => s.id === id) || null);
   } catch (error) {
     console.error('Error fetching schedule:', error);
     return null;
@@ -440,8 +483,7 @@ export const cleanupExpiredSchedules = async (): Promise<{ removedCount: number;
 // جلب جميع البيانات
 export const getAllData = async (): Promise<CenterData | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/data`);
-    return await handleResponse(response);
+    return await fetchWithFallback<CenterData>(`/data`, d => d);
   } catch (error) {
     console.error('Error fetching all data:', error);
     return null;
@@ -469,8 +511,7 @@ export const calculateTotalPrice = async (selectedSubjectIds: string[]): Promise
 // جلب مواعيد طالب معين
 export const getStudentSchedules = async (studentId: string): Promise<ScheduleType[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/students/${studentId}/schedules`);
-    return await handleResponse(response);
+    return await fetchWithFallback<ScheduleType[]>(`/students/${studentId}/schedules`, d => (d.customSchedules || []).filter(s => s.studentIds.includes(studentId)));
   } catch (error) {
     console.error('Error fetching student schedules:', error);
     return [];
@@ -480,8 +521,7 @@ export const getStudentSchedules = async (studentId: string): Promise<ScheduleTy
 // جلب مواعيد مدرس معين
 export const getTeacherSchedules = async (teacherId: string): Promise<ScheduleType[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/teachers/${teacherId}/schedules`);
-    return await handleResponse(response);
+    return await fetchWithFallback<ScheduleType[]>(`/teachers/${teacherId}/schedules`, d => (d.customSchedules || []).filter(s => s.teacherId === teacherId));
   } catch (error) {
     console.error('Error fetching teacher schedules:', error);
     return [];
@@ -506,9 +546,7 @@ export const calculateAge = (birthDate: string): number => {
 
 export const getMessages = async (): Promise<Message[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/messages`);
-    if (!response.ok) throw new Error('فشل في جلب الرسائل');
-    return await response.json();
+    return await fetchWithFallback<Message[]>(`/messages`, d => d.messages || []);
   } catch (error) {
     console.error('Error fetching messages:', error);
     return [];
@@ -559,11 +597,69 @@ export const deleteMessage = async (id: string): Promise<boolean> => {
 
 export const getMessagesForUser = async (userId: string, userType: 'student' | 'teacher'): Promise<Message[]> => {
   try {
+    // نحاول عبر API أولاً
     const response = await fetch(`${API_BASE_URL}/messages/user/${userId}?type=${userType}`);
-    if (!response.ok) throw new Error('فشل في جلب رسائل المستخدم');
-    return await response.json();
+    if (response.ok) return await response.json();
+    throw new Error('API not available');
   } catch (error) {
     console.error('Error fetching user messages:', error);
-    return [];
+    // Fallback: تصفية الرسائل من db.json بناءً على المستخدم
+    try {
+      const res = await fetch(STATIC_DB_URL);
+      const data = (await res.json()) as CenterData & { messages: Message[] };
+      const messages = data.messages || [];
+      const students = data.students || [];
+      const teachers = data.teachers || [];
+      const customSchedules = data.customSchedules || [];
+      const userMessages = messages.filter(message => {
+        if (!message.isActive) return false;
+        switch (message.targetType) {
+          case 'all_students':
+            return userType === 'student';
+          case 'all_teachers':
+            return userType === 'teacher';
+          case 'preparatory_students': {
+            if (userType !== 'student') return false;
+            const student = students.find(s => s.id === userId);
+            return student?.educationLevel === 'preparatory';
+          }
+          case 'secondary_students': {
+            if (userType !== 'student') return false;
+            const student = students.find(s => s.id === userId);
+            return student?.educationLevel === 'secondary';
+          }
+          case 'specific_grade': {
+            if (userType !== 'student') return false;
+            const student = students.find(s => s.id === userId);
+            return student?.grade === message.targetValue;
+          }
+          case 'specific_subject_grade': {
+            if (userType !== 'student') return false;
+            const student = students.find(s => s.id === userId);
+            return student?.selectedSubjects.includes(message.targetValue || '');
+          }
+          case 'specific_teacher_subject': {
+            if (userType !== 'teacher') return false;
+            const teacher = teachers.find(t => t.id === userId);
+            return teacher?.subjects.includes(message.targetValue || '');
+          }
+          case 'specific_schedule': {
+            const schedule = customSchedules.find(s => s.id === message.targetValue);
+            if (userType === 'student') {
+              return schedule?.studentIds.includes(userId) || false;
+            } else if (userType === 'teacher') {
+              return schedule?.teacherId === userId;
+            }
+            return false;
+          }
+          default:
+            return false;
+        }
+      });
+      return userMessages;
+    } catch (fallbackError) {
+      console.error('Fallback user messages failed:', fallbackError);
+      return [];
+    }
   }
 };
