@@ -462,150 +462,11 @@ ${allSubjectsList}
         </div>
       </section>
 
-      {/* Features Section - Enhanced */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
-            لماذا تختار {getShortName()}؟
-          </h2>
-          <p className="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            نقدم تعليماً متميزاً مع نظام تشجيعي متطور لتحقيق أفضل النتائج
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-gray-100"
-              >
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Encouragement System Section */}
-      <section className="py-16 px-4 bg-white from-purple-50 to-pink-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
-            نظام التشجيع والمتابعة
-          </h2>
-          <p className="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            نظام متطور لتحفيز الطلاب وتحقيق أفضل النتائج من خلال المتابعة المستمرة
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {encouragementSystem.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-purple-100"
-              >
-                <div className="mb-4 flex justify-center">{item.icon}</div>
-                <h3 className="text-lg font-bold mb-2 text-gray-800 text-center">{item.title}</h3>
-                <p className="text-gray-600 text-sm text-center leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Top Students Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
-            الطلاب المتميزون
-          </h2>
-          <p className="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            طلابنا المتفوقون الحاصلون على أكثر من 1000 نقطة وشهادات التميز
-          </p>
-          {topStudents.length > 0 && (
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-4 bg-white from-yellow-50 to-orange-50 px-6 py-3 rounded-full border border-yellow-200">
-                <div className="flex items-center gap-2">
-                  <Trophy className="w-5 h-5 text-yellow-600" />
-                  <span className="text-sm font-semibold text-yellow-700">
-                    {topStudents.length} طالب متميز
-                  </span>
-                </div>
-                <div className="w-px h-6 bg-yellow-300"></div>
-                <div className="flex items-center gap-2">
-                  <Award className="w-5 h-5 text-orange-600" />
-                  <span className="text-sm font-semibold text-orange-700">
-                    {topStudents.reduce((total, student) => total + (student.certificates?.length || 0), 0)} شهادة
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-            {topStudents.length > 0 ? (
-              topStudents.map((student, index) => (
-                <div
-                  key={index}
-                  className="bg-white from-yellow-50 to-orange-50 p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-yellow-200"
-                >
-                  <div className="text-center mb-3 sm:mb-4">
-                    <div className="relative mx-auto mb-2 sm:mb-3">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full overflow-hidden bg-primary from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg mx-auto">
-                        {student.photo ? (
-                          <img
-                            src={student.photo}
-                            alt={student.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                              target.nextElementSibling?.classList.remove('hidden');
-                            }}
-                          />
-                        ) : null}
-                        <Trophy className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white" />
-                      </div>
-                      <div className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-green-400 border-2 border-white rounded-full flex items-center justify-center">
-                        <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 bg-white rounded-full"></div>
-                      </div>
-                    </div>
-                    <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-800 truncate">{student.name}</h3>
-                    <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2 truncate">{student.grade}</p>
-                    <div className="flex items-center justify-center space-x-1 space-x-reverse">
-                      <Star className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 fill-yellow-400 text-yellow-400" />
-                      <span className="text-xs sm:text-sm lg:text-base font-bold text-orange-600">{student.points} نقطة</span>
-                    </div>
-                  </div>
-                  <div className="space-y-1 sm:space-y-2">
-                    {student.certificates && student.certificates.length > 0 ? (
-                      <>
-                        <div className="flex items-center text-xs sm:text-sm mb-2">
-                          <div className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></div>
-                          <span className="text-yellow-700 font-semibold">الشهادات الحاصل عليها:</span>
-                        </div>
-                        {student.certificates.map((certificate, idx) => (
-                          <div key={idx} className="flex items-center text-xs sm:text-sm bg-yellow-50 rounded-lg p-2 border-r-4 border-yellow-400">
-                            <Award className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600 mr-2 flex-shrink-0" />
-                            <span className="text-gray-700 truncate">{certificate}</span>
-                          </div>
-                        ))}
-                      </>
-                    ) : (
-                      <div className="flex items-center text-xs sm:text-sm bg-gray-50 rounded-lg p-2 border-r-4 border-gray-300">
-                        <Award className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 mr-2 flex-shrink-0" />
-                        <span className="text-gray-600 truncate">شهادة التفوق العلمي</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <Trophy className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-600 mb-2">لا يوجد طلاب متميزون حالياً</h3>
-                <p className="text-gray-500">كن أول طالب يحصل على أكثر من 1000 نقطة!</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+
+
+
 
       {/* Grades and Subjects Section */}
       <section className="py-20 px-4 bg-white from-gray-50 via-blue-50 to-indigo-50">
@@ -829,6 +690,132 @@ ${allSubjectsList}
               </div>
             </>
           )}
+        </div>
+      </section>
+
+
+
+
+
+
+      {/* Encouragement System Section */}
+      <section className="py-16 px-4 bg-white from-purple-50 to-pink-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
+            نظام التشجيع والمتابعة
+          </h2>
+          <p className="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+            نظام متطور لتحفيز الطلاب وتحقيق أفضل النتائج من خلال المتابعة المستمرة
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {encouragementSystem.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-purple-100"
+              >
+                <div className="mb-4 flex justify-center">{item.icon}</div>
+                <h3 className="text-lg font-bold mb-2 text-gray-800 text-center">{item.title}</h3>
+                <p className="text-gray-600 text-sm text-center leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Top Students Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
+            الطلاب المتميزون
+          </h2>
+          <p className="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+            طلابنا المتفوقون الحاصلون على أكثر من 1000 نقطة وشهادات التميز
+          </p>
+          {topStudents.length > 0 && (
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-4 bg-white from-yellow-50 to-orange-50 px-6 py-3 rounded-full border border-yellow-200">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-yellow-600" />
+                  <span className="text-sm font-semibold text-yellow-700">
+                    {topStudents.length} طالب متميز
+                  </span>
+                </div>
+                <div className="w-px h-6 bg-yellow-300"></div>
+                <div className="flex items-center gap-2">
+                  <Award className="w-5 h-5 text-orange-600" />
+                  <span className="text-sm font-semibold text-orange-700">
+                    {topStudents.reduce((total, student) => total + (student.certificates?.length || 0), 0)} شهادة
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+            {topStudents.length > 0 ? (
+              topStudents.map((student, index) => (
+                <div
+                  key={index}
+                  className="bg-white from-yellow-50 to-orange-50 p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-yellow-200"
+                >
+                  <div className="text-center mb-3 sm:mb-4">
+                    <div className="relative mx-auto mb-2 sm:mb-3">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full overflow-hidden bg-primary from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg mx-auto">
+                        {student.photo ? (
+                          <img
+                            src={student.photo}
+                            alt={student.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              target.nextElementSibling?.classList.remove('hidden');
+                            }}
+                          />
+                        ) : null}
+                        <Trophy className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-green-400 border-2 border-white rounded-full flex items-center justify-center">
+                        <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-800 truncate">{student.name}</h3>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2 truncate">{student.grade}</p>
+                    <div className="flex items-center justify-center space-x-1 space-x-reverse">
+                      <Star className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 fill-yellow-400 text-yellow-400" />
+                      <span className="text-xs sm:text-sm lg:text-base font-bold text-orange-600">{student.points} نقطة</span>
+                    </div>
+                  </div>
+                  <div className="space-y-1 sm:space-y-2">
+                    {student.certificates && student.certificates.length > 0 ? (
+                      <>
+                        <div className="flex items-center text-xs sm:text-sm mb-2">
+                          <div className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></div>
+                          <span className="text-yellow-700 font-semibold">الشهادات الحاصل عليها:</span>
+                        </div>
+                        {student.certificates.map((certificate, idx) => (
+                          <div key={idx} className="flex items-center text-xs sm:text-sm bg-yellow-50 rounded-lg p-2 border-r-4 border-yellow-400">
+                            <Award className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600 mr-2 flex-shrink-0" />
+                            <span className="text-gray-700 truncate">{certificate}</span>
+                          </div>
+                        ))}
+                      </>
+                    ) : (
+                      <div className="flex items-center text-xs sm:text-sm bg-gray-50 rounded-lg p-2 border-r-4 border-gray-300">
+                        <Award className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 mr-2 flex-shrink-0" />
+                        <span className="text-gray-600 truncate">شهادة التفوق العلمي</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <Trophy className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-gray-600 mb-2">لا يوجد طلاب متميزون حالياً</h3>
+                <p className="text-gray-500">كن أول طالب يحصل على أكثر من 1000 نقطة!</p>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
