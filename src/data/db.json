@@ -1,956 +1,6 @@
 {
   "students": [
     {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 600,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234556",
-      "name": "أحمد محمد علي",
-      "username": "ahmed1223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed12273456",
-      "name": "أحمد علي علي",
-      "username": "ahmed123",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed124583456",
-      "name": "أحمد محمد سيد",
-      "username": "ahmed123",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed43456",
-      "name": "أحمد محمد جميل",
-      "username": "ahmed123",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1245483456",
-      "name": "أحمد سيد علي",
-      "username": "ahmed123",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed484a123456",
-      "name": "أحمد محمد كمال",
-      "username": "ahmed123",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1235484asd456",
-      "name": "محمد محمد علي",
-      "username": "ahmed123",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1234878784556",
-      "name": "أحمد محمود علي",
-      "username": "ahmed123",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-ahmed1237ضصث4ئب456",
-      "name": "جمال محمد علي",
-      "username": "ahmed12223",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2007-05-15",
-      "age": 17,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "preparatory",
-      "grade": "الأولى الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "1",
-        "2"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 100,
-      "notes": "مش بيعمل الواجب",
-      "certificates": []
-    },
-    {
-      "id": "STD-fatima789012",
-      "name": "فاطمة علي حسن",
-      "username": "fatima456",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=150&h=150&fit=crop&crop=face",
-      "gender": "female",
-      "birthDate": "2008-03-20",
-      "age": 16,
-      "phone": "01156789012",
-      "parentPhone": "01012345678",
-      "educationLevel": "secondary",
-      "grade": "الأولى الثانوي",
-      "selectedSubjects": [
-        "1"
-      ],
-      "totalPrice": 500,
-      "hasPaid": true,
-      "paidSubjects": [],
-      "enrolledSubjects": [
-        "1"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 40,
-      "notes": "طالبة مجتهدة ومتفوقة",
-      "certificates": [
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-      ]
-    },
-    {
-      "id": "STD-ali345678901",
-      "name": "علي حسن محمود",
-      "username": "ali789",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      "gender": "male",
-      "birthDate": "2009-07-10",
-      "age": 15,
-      "phone": "01098765432",
-      "parentPhone": "01123456789",
-      "educationLevel": "preparatory",
-      "grade": "الثالثة الإعدادي",
-      "selectedSubjects": [
-        "3",
-        "4"
-      ],
-      "totalPrice": 850,
-      "hasPaid": true,
-      "paidSubjects": [
-        "3",
-        "4"
-      ],
-      "enrolledSubjects": [
-        "3",
-        "4"
-      ],
-      "schedule": [],
-      "monthStartDate": "2025-08-01",
-      "monthEndDate": "2025-08-31",
-      "points": 120,
-      "notes": "يحتاج مزيد من التركيز في الرياضيات",
-      "certificates": []
-    },
-    {
-      "name": "روضه محمد طه",
-      "username": "rawda123",
-      "password": "123456",
-      "photo": "data:image/jpeg;base64,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",
-      "gender": "female",
-      "birthDate": "2004-04-16",
-      "age": 21,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "secondary",
-      "grade": "الثالثة الثانوي",
-      "selectedSubjects": [
-        "1"
-      ],
-      "totalPrice": 500,
-      "hasPaid": true,
-      "paidSubjects": [
-        "1"
-      ],
-      "enrolledSubjects": [
-        "1"
-      ],
-      "monthStartDate": "2025-08-02",
-      "monthEndDate": "2025-09-01",
-      "points": 0,
-      "notes": "",
-      "certificates": [],
-      "schedule": [],
-      "id": "STD-mgfuj6knry4e"
-    },
-    {
-      "name": "سليمان علي محمد",
-      "username": "so123",
-      "password": "123456",
-      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8inPDZNis4Hwee9b2c2E-QDjvzHbMKKHz3Q&s",
-      "gender": "male",
-      "birthDate": "2009-08-16",
-      "age": 15,
-      "phone": "01024911062",
-      "parentPhone": "01024911062",
-      "educationLevel": "secondary",
-      "grade": "الأولى الثانوي",
-      "selectedSubjects": [
-        "1754087773690",
-        "1754087794950",
-        "1754087731814"
-      ],
-      "totalPrice": 900,
-      "hasPaid": true,
-      "paidSubjects": [
-        "1754087773690",
-        "1754087794950",
-        "1754087731814"
-      ],
-      "enrolledSubjects": [
-        "1754087773690",
-        "1754087794950",
-        "1754087731814"
-      ],
-      "monthStartDate": "2025-08-02",
-      "monthEndDate": "2025-09-01",
-      "points": 400000,
-      "notes": "",
-      "certificates": [],
-      "schedule": [],
-      "id": "STD-d1xsdmyqwjc0",
-      "dayOfWeek": []
-    },
-    {
       "name": "يحيي علي محمد",
       "username": "ya123",
       "password": "123456",
@@ -962,23 +12,11 @@
       "parentPhone": "01024911062",
       "educationLevel": "secondary",
       "grade": "الأولى الثانوي",
-      "selectedSubjects": [
-        "1754087731814",
-        "1754087773690",
-        "1754087794950"
-      ],
+      "selectedSubjects": [],
       "totalPrice": 900,
       "hasPaid": true,
-      "paidSubjects": [
-        "1754087731814",
-        "1754087773690",
-        "1754087794950"
-      ],
-      "enrolledSubjects": [
-        "1754087731814",
-        "1754087773690",
-        "1754087794950"
-      ],
+      "paidSubjects": [],
+      "enrolledSubjects": [],
       "monthStartDate": "2025-08-02",
       "monthEndDate": "2025-09-01",
       "points": 8000000,
@@ -1000,23 +38,11 @@
       "parentPhone": "1010101010",
       "educationLevel": "secondary",
       "grade": "الأولى الثانوي",
-      "selectedSubjects": [
-        "1754087731814",
-        "1754087773690",
-        "1754087794950"
-      ],
+      "selectedSubjects": [],
       "totalPrice": 900,
       "hasPaid": true,
-      "paidSubjects": [
-        "1754087731814",
-        "1754087773690",
-        "1754087794950"
-      ],
-      "enrolledSubjects": [
-        "1754087731814",
-        "1754087773690",
-        "1754087794950"
-      ],
+      "paidSubjects": [],
+      "enrolledSubjects": [],
       "monthStartDate": "2025-08-02",
       "monthEndDate": "2025-09-01",
       "points": 8000,
@@ -1028,226 +54,56 @@
   ],
   "teachers": [
     {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
+      "name": "مصطفي نبيه",
+      "email": "mostafa@gmail.com",
       "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
+      "photo": "https://res.cloudinary.com/dbiydbxwa/image/upload/v1759672706/4_h0iedz.png",
+      "phone": "0101010",
+      "subject": "1759672783986",
       "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "1",
-      "name": "د. محمد أحمد",
-      "email": "mohamed@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150&h=150&fit=crop&crop=face",
-      "phone": "01567890123",
-      "subjects": [
-        "1"
-      ],
-      "schedule": []
-    },
-    {
-      "id": "2",
-      "name": "أ. سارة محمود",
-      "email": "sara@teacher.com",
-      "password": "123456",
-      "photo": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
-      "phone": "01234567890",
-      "subjects": [
-        "3"
+        "1759672783986"
       ],
       "schedule": [],
-      "points": 0,
-      "notes": "",
-      "certificates": []
+      "id": "1759672826284"
     },
     {
-      "name": "حسن المصري",
-      "email": "has@gmail.com",
+      "name": "محمود سامي البارودي",
+      "email": "m@g.com",
       "password": "123456",
-      "photo": "data:image/jpeg;base64,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",
-      "phone": "01024911062",
-      "subject": "1754087731814",
+      "photo": "https://res.cloudinary.com/dbiydbxwa/image/upload/v1759672706/5_dogbss.png",
+      "phone": "0101010",
+      "subject": "1759672904554",
       "subjects": [
-        "1754087731814"
+        "1759672904554"
       ],
       "schedule": [],
-      "id": "1754087912351"
+      "id": "1759672945732"
     },
     {
-      "name": "سيد عبدالحفيظ",
-      "email": "sayed48@gmail.com",
+      "name": "مؤمن علي",
+      "email": "m@gs.com",
       "password": "123456",
-      "photo": "data:image/jpeg;base64,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",
-      "phone": "01024911062",
-      "subject": "1754087773690",
+      "photo": "https://res.cloudinary.com/dbiydbxwa/image/upload/v1759672701/2_truqgk.png",
+      "phone": "010101010",
+      "subject": "2",
       "subjects": [
-        "1754087773690"
+        "2"
       ],
       "schedule": [],
-      "id": "1754087955328"
+      "id": "1759673023826"
     },
     {
-      "name": "ابراهيم محمد",
-      "email": "ibr@gmail.com",
+      "name": "محمد ابو العيون",
+      "email": "sq@g.com",
       "password": "123456",
-      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGAaMt9YCqBLuaqZQR3SfBEVAvVIMX2Q5o-w&s",
-      "phone": "01024911062",
-      "subject": "1754087794950",
+      "photo": "https://res.cloudinary.com/dbiydbxwa/image/upload/v1759672702/3_e4x47i.png",
+      "phone": "0101010",
+      "subject": "1759673075643",
       "subjects": [
-        "1754087794950"
+        "1759673075643"
       ],
       "schedule": [],
-      "id": "1754088017423"
+      "id": "1759673120195"
     }
   ],
   "subjects": [
@@ -1271,17 +127,6 @@
       "educationLevel": "secondary",
       "grade": [
         "الثالثة الثانوي"
-      ]
-    },
-    {
-      "id": "3",
-      "name": "الجبر",
-      "description": "مادة الجبر للمرحلة الإعدادية",
-      "price": 400,
-      "duration": "شهر",
-      "educationLevel": "preparatory",
-      "grade": [
-        "الأولى الإعدادي"
       ]
     },
     {
@@ -1320,6 +165,39 @@
         "الأولى الثانوي"
       ],
       "id": "1754087794950"
+    },
+    {
+      "name": "اللغة الانجليزية",
+      "description": "اللغة الانجليزية",
+      "price": 400,
+      "duration": "شهر",
+      "educationLevel": "secondary",
+      "grade": [
+        "الثالثة الثانوي"
+      ],
+      "id": "1759672783986"
+    },
+    {
+      "name": "الكيمياء",
+      "description": "الكيمياء",
+      "price": 350,
+      "duration": "2",
+      "educationLevel": "secondary",
+      "grade": [
+        "الثانية الثانوي"
+      ],
+      "id": "1759672904554"
+    },
+    {
+      "name": "اللغة الفرنسية",
+      "description": "اللغة الفرنسية",
+      "price": 350,
+      "duration": "4",
+      "educationLevel": "secondary",
+      "grade": [
+        "الثالثة الثانوي"
+      ],
+      "id": "1759673075643"
     }
   ],
   "schedules": [],
@@ -1384,8 +262,8 @@
   "customSchedules": [
     {
       "id": "1",
-      "subjectId": "3",
-      "teacherId": "2",
+      "subjectId": "2",
+      "teacherId": "1759673023826",
       "studentIds": [
         "STD-ahmed123456"
       ],
@@ -1397,13 +275,16 @@
       "startTime": "09:00",
       "endTime": "10:30",
       "room": "قاعة 1",
-      "startDate": "2025-01-01",
-      "endDate": "2025-12-31"
+      "startDate": "2025-10-05",
+      "endDate": "2025-12-31",
+      "points": 0,
+      "notes": "",
+      "certificates": []
     },
     {
       "id": "2",
-      "subjectId": "1",
-      "teacherId": "1",
+      "subjectId": "1759672783986",
+      "teacherId": "1759672826284",
       "studentIds": [
         "STD-fatima789012"
       ],
@@ -1415,8 +296,11 @@
       "startTime": "14:00",
       "endTime": "15:30",
       "room": "قاعة 2",
-      "startDate": "2025-01-01",
-      "endDate": "2025-12-31"
+      "startDate": "2025-10-31",
+      "endDate": "2025-12-31",
+      "points": 0,
+      "notes": "",
+      "certificates": []
     }
   ]
 }

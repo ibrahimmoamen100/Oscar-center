@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { User, LogIn, Home, UserCog, Menu, X, Lock, Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { User, LogIn, Home, UserCog, Menu, X, Lock, Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, MessageCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import CENTER_CONSTANTS, { getFullName, checkAdminPassword, getMessages } from '../../constants';
 
@@ -51,15 +51,15 @@ const Navbar = () => {
   return (
     <>
       {/* Topbar - غير ثابت */}
-      <div className="bg-primary from-blue-900 via-purple-900 to-indigo-900 text-white">
+      <div className="bg-primary text-primary-foreground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-row sm:flex-row justify-between items-center py-2 sm:py-3">
             {/* Contact Info */}
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-blue-300" />
-                <a href="tel:+201024911062" className="hover:text-blue-300 transition-colors">
-                  +20 102 491 1062
+                <Phone className="w-4 h-4 opacity-90" />
+                <a href="tel:+201097946530" className="hover:opacity-80 transition-colors">
+                010 97 94 65 30
                 </a>
               </div>
             </div>
@@ -67,36 +67,22 @@ const Navbar = () => {
             {/* Social Media Links */}
             <div className="flex items-center gap-3 mt-2 sm:mt-0">
               <a 
-                href="https://facebook.com/academivault" 
+                href="https://wa.me/201024911062" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                className="w-8 h-8 bg-primary rounded-full flex items-center justify-center hover:opacity-90 transition-colors"
+                title="WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
+              <a 
+                href="https://www.facebook.com/profile.php?id=100064599555974" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-primary rounded-full flex items-center justify-center hover:opacity-90 transition-colors"
+                title="Facebook"
               >
                 <Facebook className="w-4 h-4" />
-              </a>
-              <a 
-                href="https://instagram.com/academivault" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-primary from-purple-600 to-pink-600 rounded-full flex items-center justify-center hover:from-purple-700 hover:to-pink-700 transition-colors"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a 
-                href="https://twitter.com/academivault" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a 
-                href="https://youtube.com/academivault" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
-              >
-                <Youtube className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -114,7 +100,7 @@ const Navbar = () => {
             {/* Logo */}
             <Link 
               to="/" 
-              className="flex items-center gap-3 text-xl sm:text-2xl lg:text-3xl font-bold bg-primary from-blue-600 to-green-600 bg-clip-text text-transparent hover:scale-105 transition-transform flex-shrink-0"
+              className="flex items-center gap-3 text-xl sm:text-2xl lg:text-3xl font-bold text-primary hover:scale-105 transition-transform flex-shrink-0"
             >
               <div className={`w-auto h-auto sm:w-auto sm:h-auto  rounded-xl flex items-center justify-center transition-all duration-300 ${
                 isScrolled ? 'scale-95' : 'scale-100'
@@ -130,8 +116,8 @@ const Navbar = () => {
                 to="/"
                 className={`flex items-center space-x-2 space-x-reverse px-4 py-2 rounded-xl transition-all duration-300 font-medium ${
                   isActive('/') 
-                    ? 'bg-primary from-blue-600 to-blue-700 text-white shadow-lg' 
-                    : 'hover:bg-primary hover:from-blue-50 hover:to-indigo-50 text-gray-700 hover:text-blue-600'
+                    ? 'bg-primary text-primary-foreground shadow-lg' 
+                    : 'text-gray-700 hover:text-primary hover:bg-primary/10'
                 }`}
               >
                 <Home size={20} />
@@ -142,8 +128,8 @@ const Navbar = () => {
                 to="/login"
                 className={`flex items-center space-x-2 space-x-reverse px-4 py-2 rounded-xl transition-all duration-300 font-medium ${
                   isActive('/login') 
-                    ? 'bg-primary from-green-600 to-green-700 text-white shadow-lg' 
-                    : 'hover:bg-primary hover:from-green-50 hover:to-emerald-50 text-gray-700 hover:text-green-600'
+                    ? 'bg-primary text-primary-foreground shadow-lg' 
+                    : 'text-gray-700 hover:text-primary hover:bg-primary/10'
                 }`}
               >
                 <LogIn size={20} />
@@ -154,8 +140,8 @@ const Navbar = () => {
                 onClick={handleAdminClick}
                 className={`flex items-center space-x-2 space-x-reverse px-4 py-2 rounded-xl transition-all duration-300 font-medium ${
                   isActive('/admin') 
-                    ? 'bg-primary from-purple-600 to-purple-700 text-white shadow-lg' 
-                    : 'hover:bg-primary hover:from-purple-50 hover:to-violet-50 text-gray-700 hover:text-purple-600'
+                    ? 'bg-primary text-primary-foreground shadow-lg' 
+                    : 'text-gray-700 hover:text-primary hover:bg-primary/10'
                 }`}
               >
                 <UserCog size={20} />
@@ -182,8 +168,8 @@ const Navbar = () => {
                 onClick={closeMobileMenu}
                 className={`flex items-center space-x-2 space-x-reverse px-4 py-3 rounded-xl transition-all font-medium ${
                   isActive('/') 
-                    ? 'bg-primary from-blue-600 to-blue-700 text-white shadow-lg' 
-                    : 'hover:bg-primary hover:from-blue-50 hover:to-indigo-50 text-gray-700'
+                    ? 'bg-primary text-primary-foreground shadow-lg' 
+                    : 'text-gray-700 hover:text-primary hover:bg-primary/10'
                 }`}
               >
                 <Home size={20} />
@@ -195,8 +181,8 @@ const Navbar = () => {
                 onClick={closeMobileMenu}
                 className={`flex items-center space-x-2 space-x-reverse px-4 py-3 rounded-xl transition-all font-medium ${
                   isActive('/login') 
-                    ? 'bg-primary from-green-600 to-green-700 text-white shadow-lg' 
-                    : 'hover:bg-primary hover:from-green-50 hover:to-emerald-50 text-gray-700'
+                    ? 'bg-primary text-primary-foreground shadow-lg' 
+                    : 'text-gray-700 hover:text-primary hover:bg-primary/10'
                 }`}
               >
                 <LogIn size={20} />
@@ -210,8 +196,8 @@ const Navbar = () => {
                 }}
                 className={`w-full flex items-center space-x-2 space-x-reverse px-4 py-3 rounded-xl transition-all font-medium ${
                   isActive('/admin') 
-                    ? 'bg-primary from-purple-600 to-purple-700 text-white shadow-lg' 
-                    : 'hover:bg-primary hover:from-purple-50 hover:to-violet-50 text-gray-700'
+                    ? 'bg-primary text-primary-foreground shadow-lg' 
+                    : 'text-gray-700 hover:text-primary hover:bg-primary/10'
                 }`}
               >
                 <UserCog size={20} />
@@ -244,7 +230,7 @@ const Navbar = () => {
                   id="adminPassword"
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="أدخل كلمة المرور"
                   autoFocus
                 />
@@ -263,7 +249,7 @@ const Navbar = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                  className="flex-1 px-4 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-colors font-medium"
                 >
                   دخول
                 </button>

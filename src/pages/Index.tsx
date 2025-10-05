@@ -8,7 +8,7 @@ import CENTER_CONSTANTS, { getFullName, getShortName, getStats } from '../../con
 
 const Index = () => {
   const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
-  const [selectedTeachers, setSelectedTeachers] = useState<{[subjectId: string]: boolean}>({});
+  const [selectedTeachers, setSelectedTeachers] = useState<{ [subjectId: string]: boolean }>({});
   const [teachers, setTeachers] = useState<any[]>([]);
   const [subjects, setSubjects] = useState<any[]>([]);
   const [students, setStudents] = useState<any[]>([]);
@@ -20,7 +20,7 @@ const Index = () => {
   const carouselSlides = [
     {
       id: 1,
-      image: "https://gate.ahram.org.eg/daily/Media/News/2018/9/28/2018-636737682232396910-239.jpg",      title: "مرحباً بكم في مركز التميز التعليمي",
+      image: "https://gate.ahram.org.eg/daily/Media/News/2018/9/28/2018-636737682232396910-239.jpg", title: "مرحباً بكم في مركز التميز التعليمي",
       subtitle: "نظام تعليمي متكامل يعتمد على المتابعة الشخصية والتشجيع المستمر",
       description: "نحقق معاً أحلام الطلاب من خلال تعليم متميز ومدرسين متخصصين",
       buttonText: "ابدأ رحلتك التعليمية",
@@ -29,7 +29,7 @@ const Index = () => {
     },
     {
       id: 2,
-      image: "https://media.elwatannews.com/media/img/mediaarc/large/9795335111635970400.jpg",      title: "مدرسون متخصصون وخبراء",
+      image: "https://media.elwatannews.com/media/img/mediaarc/large/9795335111635970400.jpg", title: "مدرسون متخصصون وخبراء",
       subtitle: "فريق من أفضل المدرسين المؤهلين في جميع المواد",
       description: "خبرة تزيد عن 10 سنوات في مجال التعليم مع معدلات نجاح عالية",
       buttonText: "ابدأ رحلتك التعليمية",
@@ -38,7 +38,7 @@ const Index = () => {
     },
     {
       id: 3,
-      image: "https://gate.ahram.org.eg/Media/News/2022/10/20/19_2022-638018810177653303-765.jpg",      title: "نتائج مضمونة ومعدلات نجاح عالية",
+      image: "https://gate.ahram.org.eg/Media/News/2022/10/20/19_2022-638018810177653303-765.jpg", title: "نتائج مضمونة ومعدلات نجاح عالية",
       subtitle: "معدلات نجاح تصل إلى 95% وتحسن ملحوظ في الدرجات",
       description: "نظام تشجيعي متطور مع متابعة شخصية لكل طالب",
       buttonText: "ابدأ رحلتك التعليمية",
@@ -91,7 +91,7 @@ const Index = () => {
   // دالة لحساب إجمالي الأسعار للمواد المختارة فقط
   const calculateSelectedTotalPrice = () => {
     if (!selectedGradeData) return 0;
-    
+
     return selectedGradeData.subjects.reduce((sum, subject) => {
       if (selectedTeachers[subject.id]) {
         return sum + (subject.price || 0);
@@ -108,17 +108,17 @@ const Index = () => {
   // دالة لإرسال رسالة حجز للصف المحدد مع المدرسين المختارين فقط
   const sendBookingMessage = () => {
     if (!selectedGradeData) return;
-    
+
     const gradeName = selectedGradeData.name;
     const selectedSubjectsList = selectedGradeData.subjects
       .filter(subject => selectedTeachers[subject.id])
-      .map(subject => 
+      .map(subject =>
         `• ${subject.name} - ${subject.teacher?.name || 'لم يتم تعيين مدرس بعد'}`
       );
-    
+
     const totalPrice = calculateSelectedTotalPrice();
     const selectedCount = getSelectedSubjectsCount();
-    
+
     let message = `السلام عليكم ورحمة الله وبركاته
 
 أود الحجز في الصف: ${gradeName}
@@ -136,12 +136,12 @@ ${selectedSubjectsList.join('\n')}
 
     // إذا لم يتم اختيار أي مدرس، أرسل رسالة تشمل جميع المواد
     if (selectedCount === 0) {
-      const allSubjectsList = selectedGradeData.subjects.map(subject => 
+      const allSubjectsList = selectedGradeData.subjects.map(subject =>
         `• ${subject.name} - ${subject.teacher?.name || 'لم يتم تعيين مدرس بعد'}`
       ).join('\n');
-      
+
       const allTotalPrice = selectedGradeData.subjects.reduce((sum, subject) => sum + (subject.price || 0), 0);
-      
+
       message = `السلام عليكم ورحمة الله وبركاته
 
 أود الحجز في الصف: ${gradeName}
@@ -176,7 +176,7 @@ ${allSubjectsList}
 
   useEffect(() => {
     if (isPaused) return;
-    
+
     const interval = setInterval(() => {
       nextSlide();
     }, 5000);
@@ -280,8 +280,8 @@ ${allSubjectsList}
   useEffect(() => {
     if (subjects.length > 0 && teachers.length > 0 && !selectedGrade) {
       const grades = organizeSubjectsByGrade();
-      const thirdSecondaryGrade = grades.find(grade => 
-        grade.name.includes('الثالث الثانوي') || 
+      const thirdSecondaryGrade = grades.find(grade =>
+        grade.name.includes('الثالث الثانوي') ||
         grade.name.includes('الصف الثالث الثانوي') ||
         grade.name.includes('ثالثة ثانوي') ||
         grade.name.includes('الثالثة الثانوي')
@@ -295,7 +295,7 @@ ${allSubjectsList}
   // دالة لتنظيم المواد حسب الصفوف
   const organizeSubjectsByGrade = () => {
     const gradeMap: { [key: string]: any } = {};
-    
+
     subjects.forEach(subject => {
       if (subject.grade && Array.isArray(subject.grade)) {
         subject.grade.forEach((gradeName: string) => {
@@ -307,12 +307,12 @@ ${allSubjectsList}
               subjects: []
             };
           }
-          
+
           // البحث عن المدرس للمادة
-          const teacher = teachers.find(t => 
+          const teacher = teachers.find(t =>
             t.subjects && t.subjects.includes(subject.id)
           );
-          
+
           gradeMap[gradeName].subjects.push({
             id: subject.id,
             name: subject.name,
@@ -328,7 +328,7 @@ ${allSubjectsList}
         });
       }
     });
-    
+
     return Object.values(gradeMap);
   };
 
@@ -340,7 +340,7 @@ ${allSubjectsList}
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-primary from-blue-50 via-white to-green-50">
+      <div className="min-h-screen bg-white">
         <Navbar />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
@@ -353,11 +353,11 @@ ${allSubjectsList}
   }
 
   return (
-    <div className="min-h-screen bg-primary from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
-      
+
       {/* Hero Carousel Section */}
-      <section 
+      <section
         className="relative h-screen min-h-[600px] overflow-hidden"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
@@ -367,22 +367,21 @@ ${allSubjectsList}
           {carouselSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-                index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
             >
               {/* Background Image */}
-              <div 
+              <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${slide.image})` }}
               />
-              
+
               {/* Overlay */}
-              <div 
+              <div
                 className="absolute inset-0"
                 style={{ backgroundColor: slide.overlay }}
               />
-              
+
               {/* Content */}
               <div className="relative z-20 h-full flex items-center justify-center pt-8 sm:pt-12">
                 <div className="text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -407,7 +406,7 @@ ${allSubjectsList}
                       className="bg-green-600 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-xl font-semibold text-sm sm:text-base md:text-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                     >
                       <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
                       </svg>
                       تواصل معنا
                     </button>
@@ -428,7 +427,7 @@ ${allSubjectsList}
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        
+
         <button
           onClick={nextSlide}
           className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-30 bg-white/20 backdrop-blur-sm text-white p-2 sm:p-3 rounded-full hover:bg-white/30 transition-all duration-300 shadow-lg"
@@ -445,11 +444,10 @@ ${allSubjectsList}
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? 'bg-white scale-125' 
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${index === currentSlide
+                  ? 'bg-white scale-125'
                   : 'bg-white/50 hover:bg-white/75'
-              }`}
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -457,7 +455,7 @@ ${allSubjectsList}
 
         {/* Progress Bar */}
         <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20 z-30">
-          <div 
+          <div
             className="h-full bg-white transition-all duration-1000 ease-linear"
             style={{ width: `${((currentSlide + 1) / carouselSlides.length) * 100}%` }}
           />
@@ -475,9 +473,9 @@ ${allSubjectsList}
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-primary from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-gray-100"
+                className="bg-white from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-gray-100"
               >
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-bold mb-3 text-gray-800">{feature.title}</h3>
@@ -489,7 +487,7 @@ ${allSubjectsList}
       </section>
 
       {/* Encouragement System Section */}
-      <section className="py-16 px-4 bg-primary from-purple-50 to-pink-50">
+      <section className="py-16 px-4 bg-white from-purple-50 to-pink-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
             نظام التشجيع والمتابعة
@@ -499,7 +497,7 @@ ${allSubjectsList}
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {encouragementSystem.map((item, index) => (
-              <div 
+              <div
                 key={index}
                 className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-purple-100"
               >
@@ -523,7 +521,7 @@ ${allSubjectsList}
           </p>
           {topStudents.length > 0 && (
             <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-4 bg-primary from-yellow-50 to-orange-50 px-6 py-3 rounded-full border border-yellow-200">
+              <div className="inline-flex items-center gap-4 bg-white from-yellow-50 to-orange-50 px-6 py-3 rounded-full border border-yellow-200">
                 <div className="flex items-center gap-2">
                   <Trophy className="w-5 h-5 text-yellow-600" />
                   <span className="text-sm font-semibold text-yellow-700">
@@ -543,17 +541,17 @@ ${allSubjectsList}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {topStudents.length > 0 ? (
               topStudents.map((student, index) => (
-                <div 
+                <div
                   key={index}
-                  className="bg-primary from-yellow-50 to-orange-50 p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-yellow-200"
+                  className="bg-white from-yellow-50 to-orange-50 p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-yellow-200"
                 >
                   <div className="text-center mb-3 sm:mb-4">
                     <div className="relative mx-auto mb-2 sm:mb-3">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full overflow-hidden bg-primary from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg mx-auto">
                         {student.photo ? (
-                          <img 
-                            src={student.photo} 
-                            alt={student.name} 
+                          <img
+                            src={student.photo}
+                            alt={student.name}
                             className="w-full h-full object-cover"
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
@@ -610,7 +608,7 @@ ${allSubjectsList}
       </section>
 
       {/* Grades and Subjects Section */}
-      <section className="py-20 px-4 bg-primary from-gray-50 via-blue-50 to-indigo-50">
+      <section className="py-20 px-4 bg-white from-gray-50 via-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-primary from-blue-600 to-purple-600 rounded-full mb-6">
@@ -623,7 +621,7 @@ ${allSubjectsList}
               اختر صفك لمعرفة المواد والمدرسين والأسعار المميزة
             </p>
           </div>
-          
+
           {/* Grade Selection */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
             {grades.map((grade) => (
@@ -633,11 +631,10 @@ ${allSubjectsList}
                   setSelectedGrade(grade.id);
                   setSelectedTeachers({}); // إعادة تعيين الاختيارات عند تغيير الصف
                 }}
-                className={`group relative p-6 rounded-2xl font-bold transition-all duration-500 transform hover:scale-105 ${
-                  selectedGrade === grade.id
+                className={`group relative p-6 rounded-2xl font-bold transition-all duration-500 transform hover:scale-105 ${selectedGrade === grade.id
                     ? 'bg-primary from-blue-600 via-purple-600 to-indigo-600 text-white shadow-2xl'
                     : 'bg-white text-gray-700 hover:bg-primary hover:from-blue-50 hover:to-purple-50 border-2 border-gray-200 hover:border-blue-300 shadow-lg hover:shadow-xl'
-                }`}
+                  }`}
               >
                 <div className="relative z-10">
                   <div className="text-lg font-bold mb-2">{grade.name}</div>
@@ -663,24 +660,22 @@ ${allSubjectsList}
                   المواد والمدرسين المتميزون
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
                 {selectedGradeData.subjects.map((subject, index) => (
-                  <div 
+                  <div
                     key={index}
-                    className={`group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border-2 overflow-hidden transform hover:scale-105 hover:-translate-y-2 cursor-pointer ${
-                      selectedTeachers[subject.id] 
-                        ? 'border-green-500 shadow-green-200 bg-green-50' 
+                    className={`group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border-2 overflow-hidden transform hover:scale-105 hover:-translate-y-2 cursor-pointer ${selectedTeachers[subject.id]
+                        ? 'border-green-500 shadow-green-200 bg-green-50'
                         : 'border-gray-100 hover:border-blue-300'
-                    }`}
+                      }`}
                     onClick={() => toggleTeacherSelection(subject.id)}
                   >
                     {/* Header with enhanced gradient */}
-                    <div className={`p-6 text-white relative overflow-hidden ${
-                      selectedTeachers[subject.id]
+                    <div className={`p-6 text-white relative overflow-hidden ${selectedTeachers[subject.id]
                         ? 'bg-primary from-green-600 via-blue-600 to-purple-600'
                         : 'bg-primary from-blue-600 via-purple-600 to-indigo-600'
-                    }`}>
+                      }`}>
                       <div className="absolute inset-0 bg-primary from-white/10 to-transparent"></div>
                       <div className="relative z-10">
                         <div className="flex items-center justify-between mb-4">
@@ -690,9 +685,8 @@ ${allSubjectsList}
                               {subject.price} جنيه
                             </div>
                             {/* Checkbox indicator */}
-                            <div className={`w-6 h-6 rounded-full border-2 border-white flex items-center justify-center ${
-                              selectedTeachers[subject.id] ? 'bg-white' : 'bg-transparent'
-                            }`}>
+                            <div className={`w-6 h-6 rounded-full border-2 border-white flex items-center justify-center ${selectedTeachers[subject.id] ? 'bg-white' : 'bg-transparent'
+                              }`}>
                               {selectedTeachers[subject.id] && (
                                 <CheckCircle className="w-4 h-4 text-green-600" />
                               )}
@@ -705,7 +699,7 @@ ${allSubjectsList}
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Teacher Section */}
                     <div className="p-6">
                       {subject.teacher ? (
@@ -713,9 +707,9 @@ ${allSubjectsList}
                           <div className="relative mb-4">
                             <div className="w-24 h-24 mx-auto rounded-full overflow-hidden border-4 border-blue-100 shadow-lg">
                               {subject.teacher.photo ? (
-                                <img 
-                                  src={subject.teacher.photo} 
-                                  alt={subject.teacher.name} 
+                                <img
+                                  src={subject.teacher.photo}
+                                  alt={subject.teacher.name}
                                   className="w-full h-full object-cover"
                                   onError={(e) => {
                                     const target = e.target as HTMLImageElement;
@@ -724,7 +718,7 @@ ${allSubjectsList}
                                   }}
                                 />
                               ) : (
-                                <div className="w-full h-full bg-primary from-blue-500 to-purple-600 flex items-center justify-center">
+                                <div className="w-full h-full bg-white from-blue-500 to-purple-600 flex items-center justify-center">
                                   <User className="w-12 h-12 text-white" />
                                 </div>
                               )}
@@ -745,14 +739,13 @@ ${allSubjectsList}
                           <p className="text-gray-500 text-sm">سيتم تعيين مدرس متخصص قريباً</p>
                         </div>
                       )}
-                      
+
                       {/* Selection status */}
                       <div className="mt-4 text-center">
-                        <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium ${
-                          selectedTeachers[subject.id]
+                        <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium ${selectedTeachers[subject.id]
                             ? 'bg-green-100 text-green-700'
                             : 'bg-gray-100 text-gray-600'
-                        }`}>
+                          }`}>
                           {selectedTeachers[subject.id] ? (
                             <>
                               <CheckCircle className="w-4 h-4" />
@@ -770,63 +763,70 @@ ${allSubjectsList}
                   </div>
                 ))}
               </div>
-              
-                             {/* Pricing and Booking Section */}
-               <div className="bg-primary from-green-50 via-blue-50 to-purple-50 p-8 rounded-3xl border-2 border-green-200 shadow-xl">
-                 <div className="text-center mb-8">
-                   <div className="inline-flex items-center justify-center w-16 h-16 bg-primary from-green-600 to-blue-600 rounded-full mb-4">
-                     <DollarSign className="w-8 h-8 text-white" />
-                   </div>
-                   <h3 className="text-3xl font-bold text-gray-800 mb-2">إجمالي الرسوم الشهرية</h3>
-                   <p className="text-gray-600">
-                     {getSelectedSubjectsCount() > 0 
-                       ? `للمواد المختارة (${getSelectedSubjectsCount()} من ${selectedGradeData.subjects.length})`
-                       : 'شامل جميع المواد والمتابعة والتقارير الشهرية'
-                     }
-                   </p>
-                 </div>
-                 
-                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-                   <div className="text-center lg:text-right">
-                     <div className="text-4xl font-bold text-green-600 mb-2">
-                       {getSelectedSubjectsCount() > 0 
-                         ? calculateSelectedTotalPrice() 
-                         : selectedGradeData.subjects.reduce((sum, subject) => sum + (subject.price || 0), 0)
-                       } جنيه
-                     </div>
-                     <div className="text-sm text-gray-600">
-                       شهرياً • {getSelectedSubjectsCount() > 0 ? getSelectedSubjectsCount() : selectedGradeData.subjects.length} مواد دراسية
-                     </div>
-                     {getSelectedSubjectsCount() > 0 && (
-                       <div className="text-xs text-blue-600 mt-1">
-                         تم اختيار {getSelectedSubjectsCount()} من {selectedGradeData.subjects.length} مواد
-                       </div>
-                     )}
-                   </div>
-                   
-                   <div className="flex flex-col sm:flex-row gap-4">
-                     <button
-                       onClick={sendBookingMessage}
-                       className="group bg-primary from-green-600 to-blue-600 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-3"
-                     >
-                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                       </svg>
-                       {getSelectedSubjectsCount() > 0 ? 'احجز المواد المختارة' : 'احجز جميع المواد'}
-                     </button>
-                     
-                     <button
-                       onClick={sendWhatsAppMessage}
-                       className="group bg-white text-gray-700 px-8 py-4 rounded-2xl font-bold text-lg border-2 border-gray-200 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-blue-300 flex items-center justify-center gap-3"
-                     >
-                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                       </svg>
-                       استفسار عام
-                     </button>
-                   </div>
-                 </div>
-               </div>
+
+              {/* Pricing and Booking Section */}
+              <div className="bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 p-8 rounded-3xl border-2 border-green-200 shadow-xl">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-full mb-4">
+                    <DollarSign className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-gray-800 mb-2">إجمالي الرسوم الشهرية</h3>
+                  <p className="text-gray-600">
+                    {getSelectedSubjectsCount() > 0
+                      ? `للمواد المختارة (${getSelectedSubjectsCount()} من ${selectedGradeData.subjects.length})`
+                      : 'اختر المواد التي تريد حجزها'
+                    }
+                  </p>
+                </div>
+
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+                  <div className="text-center lg:text-right">
+                    <div className="text-4xl font-bold text-green-600 mb-2">
+                      {calculateSelectedTotalPrice()} جنيه
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {getSelectedSubjectsCount() > 0
+                        ? `شهرياً • ${getSelectedSubjectsCount()} مواد دراسية`
+                        : 'لم يتم اختيار أي مواد بعد'
+                      }
+                    </div>
+                    {getSelectedSubjectsCount() > 0 && (
+                      <div className="text-xs text-blue-600 mt-1">
+                        تم اختيار {getSelectedSubjectsCount()} من {selectedGradeData.subjects.length} مواد
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button
+                      onClick={sendBookingMessage}
+                      disabled={getSelectedSubjectsCount() === 0}
+                      className={`group px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform flex items-center justify-center gap-3 ${getSelectedSubjectsCount() === 0
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-green-600 to-blue-600 text-white hover:scale-105 hover:shadow-2xl'
+                        }`}
+                    >
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
+                      </svg>
+                      {getSelectedSubjectsCount() === 0
+                        ? 'اختر مواد أولاً'
+                        : `احجز المواد المختارة (${getSelectedSubjectsCount()})`
+                      }
+                    </button>
+
+                    <button
+                      onClick={sendWhatsAppMessage}
+                      className="group bg-white text-gray-700 px-8 py-4 rounded-2xl font-bold text-lg border-2 border-gray-200 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-blue-300 flex items-center justify-center gap-3"
+                    >
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
+                      </svg>
+                      استفسار عام
+                    </button>
+                  </div>
+                </div>
+              </div>
             </>
           )}
         </div>
@@ -859,7 +859,7 @@ ${allSubjectsList}
 
 
       {/* Testimonials */}
-      <section className="py-20 px-4 bg-primary from-gray-50 via-blue-50 to-indigo-50">
+      <section className="py-20 px-4 bg-white from-gray-50 via-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
@@ -873,7 +873,7 @@ ${allSubjectsList}
               استمع إلى تجارب طلابنا المتميزين وكيف ساعدهم مركزنا في تحقيق أحلامهم
             </p>
           </div>
-          
+
           {/* Testimonials Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -886,7 +886,7 @@ ${allSubjectsList}
                 photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
               },
               {
-                name: "فاطمة علي", 
+                name: "فاطمة علي",
                 grade: "الصف الثاني الثانوي",
                 text: "المركز ساعدني في فهم الرياضيات بطريقة سهلة وممتعة. أنصح كل الطلاب بالانضمام. المتابعة الشخصية ممتازة والجداول مرنة.",
                 rating: 5,
@@ -895,7 +895,7 @@ ${allSubjectsList}
               },
               {
                 name: "محمد أحمد",
-                grade: "الصف الثالث الثانوي", 
+                grade: "الصف الثالث الثانوي",
                 text: "الجداول مرنة والمتابعة ممتازة. حققت أحلامي في دخول كلية الطب. نظام التشجيع رائع والمدرسون متخصصون جداً.",
                 rating: 5,
                 achievement: "تم قبوله في كلية الطب",
@@ -926,8 +926,8 @@ ${allSubjectsList}
                 photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face"
               }
             ].map((testimonial, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 border border-gray-100 overflow-hidden"
               >
                 {/* Header with gradient */}
@@ -937,8 +937,8 @@ ${allSubjectsList}
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30">
-                          <img 
-                            src={testimonial.photo} 
+                          <img
+                            src={testimonial.photo}
                             alt={testimonial.name}
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -964,9 +964,9 @@ ${allSubjectsList}
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-4">
                   <div className="mb-4">
                     <div className="text-2xl text-gray-300 mb-2">"</div>
                     <p className="text-gray-700 leading-relaxed text-sm">
@@ -974,22 +974,16 @@ ${allSubjectsList}
                     </p>
                     <div className="text-2xl text-gray-300 mt-2 text-right">"</div>
                   </div>
-                  
-                  {/* Achievement Badge */}
-                  <div className="bg-primary from-green-50 to-blue-50 rounded-xl p-3 border border-green-200">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-green-700 font-semibold text-sm">{testimonial.achievement}</span>
-                    </div>
-                  </div>
+
+
                 </div>
               </div>
             ))}
           </div>
-          
+
           {/* Call to Action */}
           <div className="text-center mt-16">
-            <div className="bg-primary from-yellow-50 to-orange-50 p-8 rounded-3xl border-2 border-yellow-200 shadow-xl">
+            <div className="bg-white from-yellow-50 to-orange-50 p-8 rounded-3xl border-2 border-yellow-200 shadow-xl">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">كن أنت القصة التالية للنجاح!</h3>
               <p className="text-gray-600 mb-6">انضم إلى آلاف الطلاب الذين حققوا أحلامهم معنا</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -998,14 +992,14 @@ ${allSubjectsList}
                   className="bg-primary from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
                 >
                   <User className="w-5 h-5" />
-                  سجل الآن 
+                  سجل الآن
                 </Link>
                 <button
                   onClick={sendWhatsAppMessage}
                   className="bg-white text-gray-700 px-8 py-4 rounded-2xl font-bold text-lg border-2 border-gray-200 hover:border-blue-300 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
                   </svg>
                   تواصل معنا
                 </button>
@@ -1028,7 +1022,7 @@ ${allSubjectsList}
             to="/login"
             className="inline-block bg-primary from-blue-600 to-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            سجل الآن 
+            سجل الآن
           </Link>
         </div>
       </section>

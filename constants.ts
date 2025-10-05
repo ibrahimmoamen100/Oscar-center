@@ -8,10 +8,9 @@ export const CENTER_CONSTANTS = {
   
   // ===== معلومات الاتصال =====
   contact: {
-    phone: "01024911062",
-    whatsapp: "201024911062",
+    phone: "01097946530",
+    whatsapp: "201143446567",
     email: "info@future-center.edu.eg",
-    website: "https://future-center.edu.eg",
     facebook: "https://facebook.com/futurecenter",
     instagram: "https://instagram.com/futurecenter",
     youtube: "https://youtube.com/futurecenter"

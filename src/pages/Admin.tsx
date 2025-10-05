@@ -755,11 +755,13 @@ const Admin = () => {
     return schedules.filter(schedule => {
       const subject = subjects.find(s => s.id === schedule.subjectId);
       const teacher = teachers.find(t => t.id === schedule.teacherId);
+      const searchTerm = schedulesFilter.toLowerCase();
+      
       return (
-        subject?.name.toLowerCase().includes(schedulesFilter.toLowerCase()) ||
-        teacher?.name.toLowerCase().includes(schedulesFilter.toLowerCase()) ||
-        schedule.dayOfWeek.toLowerCase().includes(schedulesFilter.toLowerCase()) ||
-        schedule.room.toLowerCase().includes(schedulesFilter.toLowerCase())
+        subject?.name.toLowerCase().includes(searchTerm) ||
+        teacher?.name.toLowerCase().includes(searchTerm) ||
+        (schedule.dayOfWeek && String(schedule.dayOfWeek).toLowerCase().includes(searchTerm)) ||
+        (schedule.room && String(schedule.room).toLowerCase().includes(searchTerm))
       );
     });
   };
