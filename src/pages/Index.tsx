@@ -1,10 +1,14 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, Users, BookOpen, Award, Clock, Star, Trophy, Target, TrendingUp, Shield, Zap, BookMarked, GraduationCap, Calendar, DollarSign, UserCheck, User } from 'lucide-react';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import type { EventInput, EventContentArg, EventMountArg } from '@fullcalendar/core';
 import Navbar from '../components/Navbar';
 import { getAllData } from '../data/api';
-import CENTER_CONSTANTS, { getFullName, getShortName, getStats } from '../../constants';
+import { getShortName, getStats } from '../../constants';
 
 const Index = () => {
   const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
@@ -15,6 +19,7 @@ const Index = () => {
   const [schedules, setSchedules] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   // بيانات الـ Carousel
   const carouselSlides = [
@@ -79,6 +84,21 @@ const Index = () => {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // دالة لإدارة اختيار المدرسين
   const toggleTeacherSelection = (subjectId: string) => {
@@ -333,10 +353,271 @@ ${allSubjectsList}
   };
 
   const grades = organizeSubjectsByGrade();
-
-
-
   const selectedGradeData = grades.find(grade => grade.id === selectedGrade);
+
+  const subjectMap = useMemo(() => {
+    const map: Record<string, { name: string; gradeLabel: string; primaryGrade: string; level: string }> = {};
+
+    subjects.forEach(subject => {
+      const gradesArray = Array.isArray(subject.grade)
+        ? subject.grade
+        : subject.grade
+          ? [subject.grade]
+          : [];
+
+      const normalizedGrades = gradesArray
+        .map((gradeName: string) => (typeof gradeName === 'string' ? gradeName.trim() : String(gradeName)))
+        .filter((gradeName): gradeName is string => Boolean(gradeName));
+
+      const primaryGrade = normalizedGrades[0] || 'غير محدد';
+      const gradeLabel = normalizedGrades.length > 0 ? normalizedGrades.join('، ') : 'غير محدد';
+
+      map[subject.id] = {
+        name: subject.name,
+        gradeLabel,
+        primaryGrade,
+        level: subject.educationLevel === 'preparatory' ? 'إعدادي' : 'ثانوي'
+      };
+    });
+
+    return map;
+  }, [subjects]);
+
+  const teacherMap = useMemo(() => {
+    const map: Record<string, string> = {};
+
+    teachers.forEach(teacher => {
+      map[teacher.id] = teacher.name;
+    });
+
+    return map;
+  }, [teachers]);
+
+  const getTodayString = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const isScheduleExpired = (schedule: any) => {
+    const currentDate = getTodayString();
+
+    if (schedule.scheduleType === 'single') {
+      return schedule.startDate < currentDate;
+    }
+
+    if (schedule.scheduleType === 'weekly' && schedule.endDate) {
+      const hasStarted = schedule.startDate <= currentDate;
+      const hasEnded = schedule.endDate < currentDate;
+      return hasStarted && hasEnded;
+    }
+
+    return false;
+  };
+
+  const calendarEvents = useMemo<EventInput[]>(() => {
+    const dayMap: Record<string, number> = {
+      sunday: 0,
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5,
+      saturday: 6,
+      'الأحد': 0,
+      'الاثنين': 1,
+      'الثلاثاء': 2,
+      'الأربعاء': 3,
+      'الخميس': 4,
+      'الجمعة': 5,
+      'السبت': 6
+    };
+
+    const today = new Date(getTodayString());
+    today.setHours(0, 0, 0, 0);
+
+    const normalizeDayNumber = (day?: string) => {
+      if (!day) return undefined;
+      const lower = day.toLowerCase();
+      if (dayMap[lower] !== undefined) return dayMap[lower];
+      if (dayMap[day] !== undefined) return dayMap[day];
+      return undefined;
+    };
+
+    return schedules
+      .flatMap(schedule => {
+        if (!schedule || !schedule.startDate) {
+          return [];
+        }
+
+        const subjectInfo = subjectMap[schedule.subjectId];
+        const teacherName = teacherMap[schedule.teacherId] || 'مدرس غير محدد';
+        const subjectName = subjectInfo?.name || 'مادة غير محددة';
+        const gradeLabel = subjectInfo?.gradeLabel || 'غير محدد';
+        const primaryGrade = subjectInfo?.primaryGrade || gradeLabel;
+        const expired = isScheduleExpired(schedule);
+
+        // معالجة المواعيد المنفردة
+        if (schedule.scheduleType === 'single') {
+          const scheduleDate = new Date(schedule.startDate);
+          scheduleDate.setHours(0, 0, 0, 0);
+
+          if (scheduleDate < today) {
+            return null;
+          }
+
+          return {
+            id: schedule.id,
+            title: subjectName,
+            start: `${schedule.startDate}T${schedule.startTime || '00:00'}`,
+            end: `${schedule.startDate}T${schedule.endTime || schedule.startTime || '00:00'}`,
+            backgroundColor: '#10b981',
+            borderColor: '#059669',
+            textColor: '#ffffff',
+            extendedProps: {
+              subject: subjectName,
+              teacher: teacherName,
+              room: schedule.room,
+              type: schedule.scheduleType,
+              expired: false,
+              grade: gradeLabel,
+              primaryGrade
+            }
+          } satisfies EventInput;
+        }
+
+        // للمواعيد الأسبوعية، تخطي المواعيد المنتهية
+        if (expired) {
+          return [];
+        }
+
+        const startDate = new Date(schedule.startDate);
+        const endDate = schedule.endDate ? new Date(schedule.endDate) : null;
+        const days = Array.isArray(schedule.dayOfWeek)
+          ? schedule.dayOfWeek
+          : schedule.dayOfWeek
+            ? [schedule.dayOfWeek]
+            : [];
+
+        const dayNumbers = days
+          .map(day => normalizeDayNumber(typeof day === 'string' ? day : String(day)))
+          .filter((value): value is number => value !== undefined);
+
+        if (dayNumbers.length === 0) {
+          return [];
+        }
+
+        const backgroundColor = '#10b981';
+        const borderColor = '#059669';
+
+        return dayNumbers.map((dayNumber, index) => ({
+          id: `${schedule.id}-${index}`,
+          title: subjectName,
+          daysOfWeek: [dayNumber],
+          startTime: schedule.startTime || '00:00',
+          endTime: schedule.endTime || schedule.startTime || '00:00',
+          startRecur: startDate.toISOString().split('T')[0],
+          endRecur: endDate ? endDate.toISOString().split('T')[0] : undefined,
+          backgroundColor,
+          borderColor,
+          textColor: '#ffffff',
+          extendedProps: {
+            subject: subjectName,
+            teacher: teacherName,
+            room: schedule.room,
+            type: schedule.scheduleType,
+            expired,
+            originalScheduleId: schedule.id,
+            dayOfWeek: dayNumber,
+            grade: gradeLabel,
+            primaryGrade
+          }
+        } satisfies EventInput));
+      })
+      .flat()
+      .filter((event): event is EventInput => Boolean(event));
+  }, [schedules, subjectMap, teacherMap]);
+
+  const renderEventContent = useCallback((eventInfo: EventContentArg) => {
+    const {
+      subject,
+      teacher,
+      room,
+      primaryGrade,
+      grade
+    } = eventInfo.event.extendedProps as {
+      subject?: string;
+      teacher?: string;
+      room?: string;
+      primaryGrade?: string;
+      grade?: string;
+    };
+
+    const gradeBadge = primaryGrade || grade;
+    const containerGap = isMobile ? 'gap-0.5' : 'gap-1';
+    const subjectClass = isMobile ? 'text-[11px]' : 'text-sm';
+    const infoClass = isMobile ? 'text-[10px]' : 'text-[11px]';
+    const metaClass = isMobile ? 'text-[10px]' : 'text-[11px]';
+    const badgeClass = isMobile ? 'text-[10px] px-1.5 py-0.5' : 'text-[11px] px-2 py-0.5';
+    const eventType = eventInfo.event.extendedProps.type;
+    const typeLabel = eventType === 'weekly' ? 'أسبوعي' : 'منفرد';
+
+    return (
+      <div className={`flex flex-col ${containerGap} text-white text-right`} dir="rtl">
+        <div className="flex items-start justify-between gap-2">
+          <span className={`${subjectClass} font-semibold leading-[1.35] flex-1`}>{subject || eventInfo.event.title}</span>
+          {gradeBadge && gradeBadge !== 'غير محدد' && (
+            <span className={`${badgeClass} rounded-full bg-white/20 font-semibold whitespace-nowrap text-right`}
+            >
+              {gradeBadge}
+            </span>
+          )}
+        </div>
+        <div className={`flex flex-col ${containerGap}`}>
+          <div className={`${infoClass} text-white/90 leading-[1.4]`}>المدرس: {teacher && teacher !== 'غير محدد' ? teacher : 'غير محدد'}</div>
+          <div className={`${infoClass} text-white/80 leading-[1.4]`}>القاعة: {room ? room : 'غير محددة'}</div>
+        </div>
+        <div className={`flex items-center justify-between ${metaClass} text-white/80 leading-[1.4]`}>
+          <span>الوقت: {eventInfo.timeText || 'غير محدد'}</span>
+          <span>النوع: {typeLabel}</span>
+        </div>
+      </div>
+    );
+  }, [isMobile]);
+
+  const handleEventDidMount = useCallback((info: EventMountArg) => {
+    info.el.style.fontSize = isMobile ? '10px' : '12px';
+    info.el.style.padding = isMobile ? '3px 4px' : '4px 6px';
+    info.el.style.borderRadius = isMobile ? '5px' : '6px';
+    info.el.style.fontWeight = 'bold';
+    info.el.style.display = 'flex';
+    info.el.style.flexDirection = 'column';
+    info.el.style.gap = isMobile ? '2px' : '4px';
+    info.el.style.whiteSpace = 'normal';
+    info.el.style.wordBreak = 'break-word';
+    info.el.style.lineHeight = isMobile ? '1.45' : '1.5';
+
+    const type = info.event.extendedProps.type;
+    if (type === 'weekly') {
+      info.el.style.backgroundColor = '#10b981';
+      info.el.style.borderColor = '#059669';
+    } else {
+      info.el.style.backgroundColor = '#f59e0b';
+      info.el.style.borderColor = '#d97706';
+    }
+    info.el.style.borderWidth = '2px';
+    info.el.style.borderStyle = 'solid';
+    info.el.style.color = '#ffffff';
+
+    const typeText = type === 'weekly' ? 'أسبوعي' : 'منفرد';
+    const subject = info.event.extendedProps.subject || 'غير محددة';
+    const teacher = info.event.extendedProps.teacher || 'غير محدد';
+    const room = info.event.extendedProps.room || '-';
+    const grade = info.event.extendedProps.grade || info.event.extendedProps.primaryGrade || 'غير محدد';
+    info.el.title = `المادة: ${subject}\nالصف: ${grade}\nالمدرس: ${teacher}\nالقاعة: ${room}\nالنوع: ${typeText}`;
+  }, [isMobile]);
 
   if (loading) {
     return (
@@ -465,7 +746,86 @@ ${allSubjectsList}
 
 
 
+      {/* Schedule Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-primary from-blue-600 to-purple-600 rounded-full  mb-6">
+              <Calendar className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-5xl font-bold mb-4 text-gray-800 bg-primary from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              جدول المواعيد الأسبوعي
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              تقويم مباشر يعرض أحدث الجلسات التعليمية كما يظهر تماماً في لوحة التحكم الإدارية
+            </p>
+          </div>
 
+          <div className="rounded-xl  overflow-hidden">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-gray-600">
+                <span>نقوم بمزامنة الجدول مع لوحة المسؤول لضمان دقة المواعيد المعروضة.</span>
+                <span className="text-xs text-gray-500">آخر تحديث يتم عند تحميل هذه الصفحة.</span>
+            </div>
+
+              <div className="rtl" dir="rtl">
+                <div className="overflow-x-auto">
+                  <div className="min-w-[540px] sm:min-w-0">
+                    <FullCalendar
+                      plugins={[dayGridPlugin, timeGridPlugin]}
+                      initialView="timeGridWeek"
+                      headerToolbar={{
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'timeGridWeek,timeGridDay'
+                      }}
+                      events={calendarEvents}
+                      locale="ar"
+                      direction="rtl"
+                      height={isMobile ? 'auto' : 650}
+                      contentHeight={isMobile ? 'auto' : 620}
+                      expandRows={!isMobile}
+                      slotMinTime="08:00:00"
+                      slotMaxTime="22:00:00"
+                      allDaySlot={false}
+                      weekends
+                      dayHeaderFormat={{ weekday: 'long', day: 'numeric' }}
+                      eventDisplay="block"
+                      eventContent={renderEventContent}
+                      dayHeaderContent={(arg) => {
+                        const dayNames = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+                        return `${dayNames[arg.date.getDay()]} ${arg.date.getDate()}`;
+                      }}
+                      eventDidMount={handleEventDidMount}
+                      noEventsText=""
+                    />
+                  </div>
+                </div>
+                {calendarEvents.length === 0 && (
+                  <div className="flex flex-col items-center justify-center py-20 text-center text-gray-500">
+                    <Calendar className="w-12 h-12 mb-4 text-gray-300" />
+                    <h3 className="text-xl font-semibold text-gray-600 mb-2">لا توجد مواعيد متاحة حالياً</h3>
+                    <p className="max-w-sm">سيتم تحديث هذا التقويم بمجرد إضافة مواعيد جديدة من قبل إدارة المركز.</p>
+                  </div>
+                )}
+            </div>
+
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div className="flex flex-wrap items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <span className="w-4 h-4 bg-green-500 rounded-full"></span>
+                    <span className="text-sm text-gray-600">مواعيد أسبوعية</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-4 h-4 bg-amber-500 rounded-full"></span>
+                    <span className="text-sm text-gray-600">مواعيد منفردة</span>
+                  </div>
+                </div>
+
+
+              </div>
+          </div>
+        </div>
+      </section>
 
 
       {/* Grades and Subjects Section */}
