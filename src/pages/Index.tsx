@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Users, BookOpen, Award, Clock, Star, Trophy, Target, TrendingUp, Shield, Zap, BookMarked, GraduationCap, Calendar, DollarSign, UserCheck, User } from 'lucide-react';
+import { CheckCircle, Users, BookOpen, Award, Clock, Star, Trophy, Target, TrendingUp, Shield, Zap, BookMarked, GraduationCap, Calendar, DollarSign, UserCheck, User, X } from 'lucide-react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -20,6 +20,17 @@ const Index = () => {
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEventData, setSelectedEventData] = useState<{
+    subject: string;
+    teacher: string;
+    teacherPhoto?: string;
+    room: string;
+    grade: string;
+    startTime: string;
+    endTime: string;
+    type: string;
+  } | null>(null);
 
   // بيانات الـ Carousel
   const carouselSlides = [
@@ -393,6 +404,16 @@ ${allSubjectsList}
     return map;
   }, [teachers]);
 
+  const teacherPhotoMap = useMemo(() => {
+    const map: Record<string, string | undefined> = {};
+
+    teachers.forEach(teacher => {
+      map[teacher.id] = teacher.photo;
+    });
+
+    return map;
+  }, [teachers]);
+
   const getTodayString = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -454,6 +475,7 @@ ${allSubjectsList}
 
         const subjectInfo = subjectMap[schedule.subjectId];
         const teacherName = teacherMap[schedule.teacherId] || 'مدرس غير محدد';
+        const teacherPhoto = teacherPhotoMap[schedule.teacherId];
         const subjectName = subjectInfo?.name || 'مادة غير محددة';
         const gradeLabel = subjectInfo?.gradeLabel || 'غير محدد';
         const primaryGrade = subjectInfo?.primaryGrade || gradeLabel;
@@ -479,11 +501,15 @@ ${allSubjectsList}
             extendedProps: {
               subject: subjectName,
               teacher: teacherName,
+              teacherId: schedule.teacherId,
+              teacherPhoto: teacherPhoto,
               room: schedule.room,
               type: schedule.scheduleType,
               expired: false,
               grade: gradeLabel,
-              primaryGrade
+              primaryGrade,
+              startTime: schedule.startTime || '00:00',
+              endTime: schedule.endTime || schedule.startTime || '00:00'
             }
           } satisfies EventInput;
         }
@@ -526,63 +552,52 @@ ${allSubjectsList}
           extendedProps: {
             subject: subjectName,
             teacher: teacherName,
+            teacherId: schedule.teacherId,
+            teacherPhoto: teacherPhoto,
             room: schedule.room,
             type: schedule.scheduleType,
             expired,
             originalScheduleId: schedule.id,
             dayOfWeek: dayNumber,
             grade: gradeLabel,
-            primaryGrade
+            primaryGrade,
+            startTime: schedule.startTime || '00:00',
+            endTime: schedule.endTime || schedule.startTime || '00:00'
           }
         } satisfies EventInput));
       })
       .flat()
       .filter((event): event is EventInput => Boolean(event));
-  }, [schedules, subjectMap, teacherMap]);
+  }, [schedules, subjectMap, teacherMap, teacherPhotoMap]);
 
   const renderEventContent = useCallback((eventInfo: EventContentArg) => {
     const {
       subject,
-      teacher,
-      room,
       primaryGrade,
       grade
     } = eventInfo.event.extendedProps as {
       subject?: string;
-      teacher?: string;
-      room?: string;
       primaryGrade?: string;
       grade?: string;
     };
 
     const gradeBadge = primaryGrade || grade;
-    const containerGap = isMobile ? 'gap-0.5' : 'gap-1';
-    const subjectClass = isMobile ? 'text-[11px]' : 'text-sm';
-    const infoClass = isMobile ? 'text-[10px]' : 'text-[11px]';
-    const metaClass = isMobile ? 'text-[10px]' : 'text-[11px]';
-    const badgeClass = isMobile ? 'text-[10px] px-1.5 py-0.5' : 'text-[11px] px-2 py-0.5';
-    const eventType = eventInfo.event.extendedProps.type;
-    const typeLabel = eventType === 'weekly' ? 'أسبوعي' : 'منفرد';
+    // Very small font on mobile, slightly larger on desktop
+    const subjectClass = isMobile ? 'text-[8px]' : 'text-[10px]';
+    const gradeClass = isMobile ? 'text-[7px]' : 'text-[9px]';
 
     return (
-      <div className={`flex flex-col ${containerGap} text-white text-right`} dir="rtl">
-        <div className="flex items-start justify-between gap-2">
-          <span className={`${subjectClass} font-semibold leading-[1.35] flex-1`}>{subject || eventInfo.event.title}</span>
-          {gradeBadge && gradeBadge !== 'غير محدد' && (
-            <span className={`${badgeClass} rounded-full bg-white/20 font-semibold whitespace-nowrap text-right`}
-            >
-              {gradeBadge}
-            </span>
-          )}
+      <div className={`flex flex-col gap-0.5 text-white text-right cursor-pointer`} dir="rtl">
+        <div className="flex items-center justify-between gap-1">
+          <span className={`${subjectClass} font-semibold leading-tight flex-1 truncate`}>
+            {subject || eventInfo.event.title}
+          </span>
         </div>
-        <div className={`flex flex-col ${containerGap}`}>
-          <div className={`${infoClass} text-white/90 leading-[1.4]`}>المدرس: {teacher && teacher !== 'غير محدد' ? teacher : 'غير محدد'}</div>
-          <div className={`${infoClass} text-white/80 leading-[1.4]`}>القاعة: {room ? room : 'غير محددة'}</div>
-        </div>
-        <div className={`flex items-center justify-between ${metaClass} text-white/80 leading-[1.4]`}>
-          <span>الوقت: {eventInfo.timeText || 'غير محدد'}</span>
-          <span>النوع: {typeLabel}</span>
-        </div>
+        {gradeBadge && gradeBadge !== 'غير محدد' && (
+          <span className={`${gradeClass} rounded-full bg-white/20 font-medium whitespace-nowrap px-1 py-0.5 text-right`}>
+            {gradeBadge}
+          </span>
+        )}
       </div>
     );
   }, [isMobile]);
@@ -611,13 +626,95 @@ ${allSubjectsList}
     info.el.style.borderStyle = 'solid';
     info.el.style.color = '#ffffff';
 
-    const typeText = type === 'weekly' ? 'أسبوعي' : 'منفرد';
-    const subject = info.event.extendedProps.subject || 'غير محددة';
-    const teacher = info.event.extendedProps.teacher || 'غير محدد';
-    const room = info.event.extendedProps.room || '-';
-    const grade = info.event.extendedProps.grade || info.event.extendedProps.primaryGrade || 'غير محدد';
-    info.el.title = `المادة: ${subject}\nالصف: ${grade}\nالمدرس: ${teacher}\nالقاعة: ${room}\nالنوع: ${typeText}`;
+    info.el.style.cursor = 'pointer';
   }, [isMobile]);
+
+  // دالة لتحويل الوقت من 24 ساعة إلى 12 ساعة مع إضافة صباحاً/مساءً
+  const formatTimeWithPeriod = useCallback((time24: string): string => {
+    if (!time24 || time24.trim() === '' || time24 === '00:00') {
+      return 'غير محدد';
+    }
+
+    try {
+      const [hoursStr, minutesStr] = time24.split(':');
+      const hours = parseInt(hoursStr, 10);
+      const minutes = parseInt(minutesStr || '0', 10);
+
+      if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+        return time24;
+      }
+
+      // تحديد الفترة (صباحاً/مساءً)
+      let period: string;
+      let hours12: number;
+
+      if (hours === 0) {
+        // منتصف الليل (00:xx)
+        hours12 = 12;
+        period = 'صباحاً';
+      } else if (hours === 12) {
+        // الظهر (12:xx)
+        hours12 = 12;
+        period = 'مساءً';
+      } else if (hours < 12) {
+        // صباح (01:xx - 11:xx)
+        hours12 = hours;
+        period = 'صباحاً';
+      } else {
+        // مساء (13:xx - 23:xx)
+        hours12 = hours - 12;
+        period = 'مساءً';
+      }
+
+      const formattedMinutes = minutes.toString().padStart(2, '0');
+      return `${hours12}:${formattedMinutes} ${period}`;
+    } catch {
+      return time24;
+    }
+  }, []);
+
+  const handleEventClick = useCallback((clickInfo: any) => {
+    const {
+      subject,
+      teacher,
+      teacherPhoto,
+      room,
+      grade,
+      primaryGrade,
+      type,
+      startTime,
+      endTime
+    } = clickInfo.event.extendedProps as {
+      subject?: string;
+      teacher?: string;
+      teacherPhoto?: string;
+      room?: string;
+      grade?: string;
+      primaryGrade?: string;
+      type?: string;
+      startTime?: string;
+      endTime?: string;
+    };
+
+    const gradeLabel = primaryGrade || grade || 'غير محدد';
+    const typeLabel = type === 'weekly' ? 'أسبوعي' : 'منفرد';
+    
+    // استخدام الأوقات من extendedProps أو من الحدث نفسه
+    const eventStartTime = startTime || (clickInfo.event.start ? new Date(clickInfo.event.start).toTimeString().slice(0, 5) : '00:00');
+    const eventEndTime = endTime || (clickInfo.event.end ? new Date(clickInfo.event.end).toTimeString().slice(0, 5) : eventStartTime);
+
+    setSelectedEventData({
+      subject: subject || 'مادة غير محددة',
+      teacher: teacher || 'مدرس غير محدد',
+      teacherPhoto: teacherPhoto,
+      room: room || 'غير محددة',
+      grade: gradeLabel,
+      startTime: eventStartTime,
+      endTime: eventEndTime,
+      type: typeLabel
+    });
+    setIsModalOpen(true);
+  }, []);
 
   if (loading) {
     return (
@@ -796,6 +893,7 @@ ${allSubjectsList}
                         return `${dayNames[arg.date.getDay()]} ${arg.date.getDate()}`;
                       }}
                       eventDidMount={handleEventDidMount}
+                      eventClick={handleEventClick}
                       noEventsText=""
                     />
                   </div>
@@ -826,6 +924,145 @@ ${allSubjectsList}
           </div>
         </div>
       </section>
+
+      {/* Event Details Modal */}
+      {isModalOpen && selectedEventData && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/50 backdrop-blur-sm"
+          onClick={() => setIsModalOpen(false)}
+          dir="rtl"
+        >
+          <div 
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto transform transition-all"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-4 sm:p-6 rounded-t-2xl sm:rounded-t-3xl">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-2 left-2 sm:top-4 sm:left-4 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white/20 hover:bg-white/30 rounded-full transition-all duration-200"
+              >
+                <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              </button>
+              <div className="text-center text-white pr-8 sm:pr-0">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{selectedEventData.subject}</h3>
+                <p className="text-blue-100 text-xs sm:text-sm">{selectedEventData.grade}</p>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-4 sm:p-6">
+              {/* Teacher Photo and Info */}
+              <div className="text-center mb-4 sm:mb-6">
+                <div className="relative inline-block mb-3 sm:mb-4">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-blue-100 shadow-xl mx-auto">
+                    {selectedEventData.teacherPhoto ? (
+                      <img
+                        src={selectedEventData.teacherPhoto}
+                        alt={selectedEventData.teacher}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          const fallback = target.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.classList.remove('hidden');
+                        }}
+                      />
+                    ) : null}
+                    <div className={`w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ${selectedEventData.teacherPhoto ? 'hidden' : ''}`}>
+                      <User className="w-12 h-12 sm:w-16 sm:h-16 text-white" />
+                    </div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 w-8 h-8 sm:w-10 sm:h-10 bg-green-500 rounded-full border-2 sm:border-4 border-white flex items-center justify-center shadow-lg">
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 bg-white rounded-full"></div>
+                  </div>
+                </div>
+                <h4 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">{selectedEventData.teacher}</h4>
+                <p className="text-gray-600 text-xs sm:text-sm">مدرس متخصص</p>
+              </div>
+
+              {/* Details Grid */}
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-r-4 border-blue-500">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-500 text-xs sm:text-sm mb-1">المادة</p>
+                    <p className="text-gray-800 font-semibold text-sm sm:text-base">{selectedEventData.subject}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-r-4 border-green-500">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <User className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-500 text-xs sm:text-sm mb-1">المدرس</p>
+                    <p className="text-gray-800 font-semibold text-sm sm:text-base">{selectedEventData.teacher}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-r-4 border-purple-500">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-500 text-xs sm:text-sm mb-1">الصف</p>
+                    <p className="text-gray-800 font-semibold text-sm sm:text-base">{selectedEventData.grade}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl border-r-4 border-orange-500">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-500 text-xs sm:text-sm mb-1">الوقت</p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-gray-800 font-semibold text-sm sm:text-base">
+                        {formatTimeWithPeriod(selectedEventData.startTime)}
+                      </span>
+                      <span className="text-gray-400 text-xs">-</span>
+                      <span className="text-gray-800 font-semibold text-sm sm:text-base">
+                        {formatTimeWithPeriod(selectedEventData.endTime)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl border-r-4 border-indigo-500">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-500 text-xs sm:text-sm mb-1">القاعة</p>
+                    <p className="text-gray-800 font-semibold text-sm sm:text-base">{selectedEventData.room}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl border-r-4 border-teal-500">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Star className="w-5 h-5 sm:w-6 sm:h-6 text-teal-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-500 text-xs sm:text-sm mb-1">نوع الموعد</p>
+                    <p className="text-gray-800 font-semibold text-sm sm:text-base">{selectedEventData.type}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="w-full mt-4 sm:mt-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold text-sm sm:text-base hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
+              >
+                إغلاق
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
 
       {/* Grades and Subjects Section */}

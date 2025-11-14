@@ -104,6 +104,19 @@
       ],
       "schedule": [],
       "id": "1759673120195"
+    },
+    {
+      "name": "محمد عبدالمؤمن",
+      "email": "sa@g.com",
+      "password": "45086932",
+      "photo": "https://privatejo.com/storage/1146/conversions/z9iV0JcczfdmdgXh-thumb.jpg",
+      "phone": "01024911062",
+      "subject": "1",
+      "subjects": [
+        "1"
+      ],
+      "schedule": [],
+      "id": "1762581361415"
     }
   ],
   "subjects": [
@@ -298,6 +311,25 @@
       "room": "قاعة 2",
       "startDate": "2025-10-31",
       "endDate": "2025-12-31",
+      "points": 0,
+      "notes": "",
+      "certificates": []
+    },
+    {
+      "subjectId": "1",
+      "teacherId": "1762581361415",
+      "scheduleType": "single",
+      "dayOfWeek": [
+        "sunday",
+        "wednesday"
+      ],
+      "startTime": "16:00",
+      "endTime": "18:00",
+      "room": "2",
+      "startDate": "2025-11-29",
+      "endDate": "",
+      "studentIds": [],
+      "id": "1762581480873",
       "points": 0,
       "notes": "",
       "certificates": []
